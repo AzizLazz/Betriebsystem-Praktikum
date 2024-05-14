@@ -1,0 +1,11 @@
+During my Betriebsystem-Praktikum (Operating System Internship), I developed an operating system from scratch using C and Assembler languages. This project provided a comprehensive learning experience in system programming and hardware-related development.
+
+The operating system development involved various aspects, including memory management, process scheduling, device drivers, and kernel-level programming. Through this project, I gained valuable insights into the intricacies of operating system design and implementation.
+
+Key components of the project included:
+
+Memory management algorithms to efficiently allocate and deallocate system memory.
+Process scheduling mechanisms to manage CPU utilization and task prioritization.
+Device driver development to interface with hardware components and peripherals.
+Low-level programming in Assembler to interact directly with hardware registers and resources.
+Overall, this project provided a hands-on opportunity to explore the fundamentals of operating system architecture and deepen understanding of system-level programming concepts.
