@@ -1,0 +1,54 @@
+From 9c6e71079b46ad5433165feaa2001450f2017b56 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Przemys=C5=82aw=20Buczkowski?= <prem@prem.moe>
+Date: Mon, 16 Aug 2021 13:16:21 +0100
+Subject: GCC: Patch for Apple Silicon compatibility
+
+This patch fixes a linker error occuring when compiling
+the cross-compiler on macOS and ARM64 architecture.
+
+Adapted from:
+https://github.com/richfelker/musl-cross-make/issues/116#issuecomment-823612404
+
+Change-Id: Ia3ee98a163bbb62689f42e2da83a5ef36beb0913
+Reviewed-on: https://review.haiku-os.org/c/buildtools/+/4329
+Reviewed-by: John Scipione <jscipione@gmail.com>
+Reviewed-by: Adrien Destugues <pulkomandy@gmail.com>
+---
+ gcc/gcc/config/aarch64/aarch64.h | 2 +-
+ gcc/gcc/config/host-darwin.c     | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/gcc/gcc/config/aarch64/aarch64.h b/gcc/gcc/config/aarch64/aarch64.h
+index 976f9afae5..736b83ff0b 100644
+--- a/gcc/gcc/config/aarch64/aarch64.h
++++ b/gcc/gcc/config/aarch64/aarch64.h
+@@ -1186,6 +1186,6 @@ extern const char *aarch64_rewrite_mcpu (int argc, const char **argv);
+ /* Extra specs when building a native AArch64-hosted compiler.
+    Option rewriting rules based on host system.  */
+-#if defined(__aarch64__)
++#if defined(__aarch64__) && ! defined(__APPLE__)
+ extern const char *host_detect_local_cpu (int argc, const char **argv);
+ #define HAVE_LOCAL_CPU_DETECT
+ # define EXTRA_SPEC_FUNCTIONS                                           \
+diff --git a/gcc/gcc/config/host-darwin.c b/gcc/gcc/config/host-darwin.c
+index 8f700eec85..b737abc006 100644
+--- a/gcc/gcc/config/host-darwin.cc
++++ b/gcc/gcc/config/host-darwin.cc
+@@ -24,6 +24,8 @@
+ #include "diagnostic-core.h"
+ #include "config/host-darwin.h"
+ #include <errno.h>
++#include "hosthooks.h"
++#include "hosthooks-def.h"
+ 
+ /* For Darwin (macOS only) platforms, without ASLR (PIE) enabled on the
+    binaries, the following VM addresses are expected to be available.
+@@ -181,3 +181,5 @@ darwin_gt_pch_use_address (void *addr, size_t sz, int fd, size_t off)
+ 
+   return 1;
+ }
++
++const struct host_hooks host_hooks = HOST_HOOKS_INITIALIZER;
+-- 
+cgit v1.2.3
+

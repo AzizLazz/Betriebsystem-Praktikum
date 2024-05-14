@@ -1,0 +1,7 @@
+--- orig/configs/targets/arm-softmmu.mak	2021-10-13 17:06:06.852972541 +0000
++++ configs/targets/arm-softmmu.mak	2021-10-13 17:30:31.402907095 +0000
+@@ -2,3 +2,4 @@
+ TARGET_SUPPORTS_MTTCG=y
+ TARGET_XML_FILES= gdb-xml/arm-core.xml gdb-xml/arm-vfp.xml gdb-xml/arm-vfp3.xml gdb-xml/arm-vfp-sysregs.xml gdb-xml/arm-neon.xml gdb-xml/arm-m-profile.xml gdb-xml/arm-m-profile-mve.xml
+ TARGET_NEED_FDT=y
++TARGET_ALIGNED_ONLY=y
